@@ -89,7 +89,7 @@ class Records extends MY_Controller {
 		
 		} else {
 			$record_info = $_POST;
-			
+			$record_info['total_guest'] = count(json_decode($record_info['invited_list'], true));
 			$records_info = $this->records_model->get_all(null, null);
 			if ($records_info->num_rows()>0) {
 				foreach ($records_info->result() as $records) {
@@ -98,10 +98,8 @@ class Records extends MY_Controller {
 			}else{
 				$record_info['code'] = 9999;
 			}
-
 			$max_id = $this->records_model->add($record_info);
 	        $this->genete_qr($max_id);
-	        
 	        $config_email = array();
 	        $config_email['subjet'] = "CÓDIGO CBT-GRADUACIÓN 2019";
 	        $message_info = array(
@@ -109,7 +107,8 @@ class Records extends MY_Controller {
 	          'student_name'  => $record_info['student_name'],
 	          'date'          => date('Y-m-d H:i:s'),
 	          'email'         => $record_info['student_email'],
-	          "description"   => "CÓDIGO QR DEL REGISTRO DE INVITADOS PARA LA GRADUACIÓN CBT-2019"
+	          "description"   => "CÓDIGO QR DEL REGISTRO DE INVITADOS PARA LA GRADUACIÓN CBT-2019",
+	          "inviteds_list"  => $record_info['invited_list']
 	        );
 	        $send_email = $this->send_email($config_email, $message_info);
 	        $this->session->set_flashdata('msg_success', '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'.$this->lang->line('record_saved').$mensaje.'</div> <script>localStorage.removeItem("cbt_guests");localStorage.removeItem("cbt_records");</script>');
@@ -125,7 +124,7 @@ class Records extends MY_Controller {
         $this->email->set_mailtype("html");
         $this->email->from($this->config->item('sender_email'), $this->config->item('sender_name'));
         $this->email->to($message_info['email']);
-       	$config['content']  = $this->load->view('cmn/eml/record_complete', $message_info, true);
+       	$config['content'] = $this->load->view('cmn/eml/record_complete', $message_info, true);
        	$this->email->subject($config['subjet']);
        	$this->email->message($config['content']);
    		/*ARCHIVOS ADJUNTOS*/

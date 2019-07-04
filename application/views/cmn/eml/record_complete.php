@@ -41,6 +41,15 @@
                         Registro Exitoso
 
                     </h3>
+
+                    <p class="text-info" style="text-align: center; white-space: normal; margin-top: -15px; line-height:20px; border-radius: 10px; padding-bottom: 10px;">
+                        -Las raíces de la educación son amargas, pero la fruta es dulce. 
+                        <small>
+                            <br>
+                            - Aristóteles.
+                        </small>
+                    </p>
+                    
            
                 </td>
            
@@ -50,9 +59,9 @@
                 
                 <td width="100%" style="vertical-align:top;">
                     
-                    <p style="text-align:center; white-space: normal; padding-bottom: 10px;">
+                    <p style="text-align:center; white-space: normal; line-height:30px; padding-bottom: 10px;">
                        
-                       CBT-GRADUACIÓN 2019 <br>
+                       <strong>CBT-GRADUACIÓN 2019</strong> <br>
 
                        <small> <?php echo $description;?> </small>
                    
@@ -61,12 +70,12 @@
                     <table class="table-info" align="center">
                         <tr>            
                             <td colspan="2" class="text-muted"><b> Información de registro </b></td> 
-                            <td></td>
+
                         </tr>
 
                         <tr>            
-                            <td align='right' width="40%">Codigo de registro:</td>        
-                            <td align='left' width="60%"><b><?php echo $record_number;?></b></td>    
+                            <td align='right' width="auto" style="text-align: right;">Codigo de registro:</td>        
+                            <td align='left' width="50%" style="text-align: left;"><b><?php echo $record_number;?></b></td>    
                         </tr>  
 
                         <tr>            
@@ -80,13 +89,26 @@
                         </tr>
                     
                     </table>
+
                     
                     <br>
-                    
+               
+                    <table class="table-info" align="center"  > 
+                        <tr>            
+                            <td colspan="2" class="text-muted"><b> Invitados </b></td> 
+                        </tr>       
+                        <?php 
+                        $inviteds_list = json_decode($inviteds_list, true);
+                        foreach ($inviteds_list as $key => $invited_list): ?>
+                                <tr>      
+                                    <td align='right' width="10%" style="text-align: right;"><?php echo $key+1;?>.-</td>      
+                                        <b><?php echo $invited_list["student_invited"];?></b>
+                                    </td>    
+                                </tr>    
+                        <?php endforeach; ?>
+                    </table>
                 </td>
-            
             </tr>
-    
         </table>    
 
         <center>
