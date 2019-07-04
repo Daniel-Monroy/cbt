@@ -1,7 +1,7 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
-  RewriteBase /cbt/
+  RewriteBase /cbt-developers/
 
   RewriteCond $1 !^(index\.php|assets|js|files|robots\.txt|css)
   RewriteCond %{REQUEST_FILENAME} !-f
