@@ -52,6 +52,7 @@ CREATE TABLE `ia_records` (
   `student_name` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
   `student_email` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
   `invited_list` text COLLATE utf8_spanish_ci,
+  `total_guest` int(11) NOT NULL,
   `date_registred` timestamp NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 ALTER TABLE `ia_records` ADD PRIMARY KEY (`record_id`);
