@@ -102,7 +102,6 @@
                         foreach ($inviteds_list as $key => $invited_list): ?>
                                 <tr>      
                                     <td align='right' width="10%" style="text-align: right;"><?php echo $key+1;?>.-</td>      
-                                    <td align='left'  width="70%" style="text-align: left;">
                                         <b><?php echo $invited_list["student_invited"];?></b>
                                     </td>    
                                 </tr>    
