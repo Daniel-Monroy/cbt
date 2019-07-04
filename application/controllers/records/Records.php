@@ -89,7 +89,7 @@ class Records extends MY_Controller {
 		
 		} else {
 			$record_info = $_POST;
-			
+			$record_info['total_guest'] = count(json_decode($record_info['invited_list'], true));
 			$records_info = $this->records_model->get_all(null, null);
 			if ($records_info->num_rows()>0) {
 				foreach ($records_info->result() as $records) {
