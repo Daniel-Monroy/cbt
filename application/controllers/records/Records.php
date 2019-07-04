@@ -124,7 +124,7 @@ class Records extends MY_Controller {
         $this->email->set_mailtype("html");
         $this->email->from($this->config->item('sender_email'), $this->config->item('sender_name'));
         $this->email->to($message_info['email']);
-       	$config['content']  = $this->load->view('cmn/eml/record_complete', $message_info, true);
+       	$config['content'] = $this->load->view('cmn/eml/record_complete', $message_info, true);
        	$this->email->subject($config['subjet']);
        	$this->email->message($config['content']);
    		/*ARCHIVOS ADJUNTOS*/

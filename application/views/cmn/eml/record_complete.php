@@ -70,12 +70,12 @@
                     <table class="table-info" align="center">
                         <tr>            
                             <td colspan="2" class="text-muted"><b> Información de registro </b></td> 
-                            <td></td>
+
                         </tr>
 
                         <tr>            
-                            <td align='right' width="40%">Codigo de registro:</td>        
-                            <td align='left' width="60%"><b><?php echo $record_number;?></b></td>    
+                            <td align='right' width="auto" style="text-align: right;">Codigo de registro:</td>        
+                            <td align='left' width="50%" style="text-align: left;"><b><?php echo $record_number;?></b></td>    
                         </tr>  
 
                         <tr>            
@@ -93,17 +93,15 @@
                     
                     <br>
                
-                    <table class="table-info" align="center"> 
+                    <table class="table-info" align="center"  > 
                         <tr>            
                             <td colspan="2" class="text-muted"><b> Invitados </b></td> 
-                            <td></td>
                         </tr>       
                         <?php 
                         $inviteds_list = json_decode($inviteds_list, true);
                         foreach ($inviteds_list as $key => $invited_list): ?>
                                 <tr>      
-                                    <td align='right' width="25%"><?php echo $key+1;?>.-</td>      
-                                    <td align='left'  width="85%">
+                                    <td align='right' width="10%" style="text-align: right;"><?php echo $key+1;?>.-</td>      
                                         <b><?php echo $invited_list["student_invited"];?></b>
                                     </td>    
                                 </tr>    
