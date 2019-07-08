@@ -28,9 +28,9 @@ if(!function_exists('get_assets')){
 
 if(!function_exists('get_message')){
    function get_message($type, $message){
-      return '<div style="margin-top:15px" class="alert alert-' .$type . ' alert-dismissable">
+      return '<div style="margin-top:16px;" class="alert alert-' .$type . ' alert-dismissable">
                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' .
-                 $message .
+                 '<span style="font-size:16px">'.$message.'</span>'.
              '</div>';
    }
 }

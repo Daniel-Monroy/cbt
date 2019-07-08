@@ -21,9 +21,7 @@
 				<div class="col-xs-12">
 				   <?php 
 				   		echo (isset($message))?($message):('');
-			        	if (validation_errors()):
-				            echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'.validation_errors().'</div>';
-				        endif;
+				   		echo (validation_errors())?(get_message('danger', validation_errors())):('');
 			        ?>
 				</div>
 			</div>
@@ -57,6 +55,16 @@
 							<i class="fa fa-users"></i>
 						</span>	
 						<?php echo form_dropdown('group_id', $groups, set_value('group_id'), 'class="form-control group_id"');?>
+					</div>
+				</div>
+				<div class="form-group <?php echo (form_error('student_account')?('has-error'):(''));?>">
+					<?php echo required_field();?>
+					<label for="student_account"> Número de control:</label>
+					<div class="input-group">
+						<span class="input-group-addon">
+							<i class="fa fa-key"></i>
+						</span>	
+						<?php echo form_input($student_account); ?> 
 					</div>
 				</div>
 				<div class="form-group <?php echo (form_error('student_name')?('has-error'):(''));?>">

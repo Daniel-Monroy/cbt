@@ -47,6 +47,7 @@ drop table if exists ia_records;
 CREATE TABLE `ia_records` (
   `record_id` int(11) NOT NULL,
   `code` text COLLATE utf8_spanish_ci,
+  `student_account` varchar(5) COLLATE utf8_spanish_ci NOT NULL,
   `plan_id` int(11) DEFAULT NULL,
   `group_id` int(11) NOT NULL,
   `student_name` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
