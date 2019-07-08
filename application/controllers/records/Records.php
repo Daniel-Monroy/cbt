@@ -22,7 +22,6 @@ class Records extends MY_Controller {
             $data['message'] = $this->session->flashdata('msg_success');
         }
 		$data['extraHeadContent']    =  get_assets("records/records.css");
-		
 		$data['extraFooterContent']  =  get_assets("records/records.js");
 		$data['extraFooterContent'] .=  get_assets("records/new_member.js");
 		$data['extraFooterContent'] .=  get_assets("records/validate.js");
@@ -174,7 +173,7 @@ class Records extends MY_Controller {
 	
 	function _registration_code($registration_code){
       	$setting_info = $this->settings_model->get("settings_id", "1")->row();
-      	if($setting_info->registration_code != $registration_code)
+      	if($this->records_model->registration_code_decode($setting_info->registration_code) != $registration_code)
       		return FALSE;
       	else
       		return TRUE;

@@ -28,6 +28,18 @@ class Records_model extends CI_Model {
         return TRUE;
     }
 
+    function registration_code_enconde($registration_code){
+        $this->load->library('encryption');
+        $decoded_string = $this->encryption->encrypt($registration_code);
+        return $decoded_string;
+    }
+
+    function registration_code_decode($registration_code){
+        $this->load->library('encryption');
+        $decoded_string = $this->encryption->decrypt($registration_code);
+        return $decoded_string;
+    }
+
 }
 /* End of file Records_model.php */
 /* Location: ./application/models/records/Records_model.php */

@@ -46,15 +46,16 @@ ALTER TABLE `ia_plans` MODIFY `plan_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_IN
 drop table if exists ia_records;
 CREATE TABLE `ia_records` (
   `record_id` int(11) NOT NULL,
-  `code` text COLLATE utf8_spanish_ci,
+  `code` text COLLATE utf8_spanish_ci DEFAULT NULL,
   `student_account` varchar(5) COLLATE utf8_spanish_ci NOT NULL,
   `plan_id` int(11) DEFAULT NULL,
   `group_id` int(11) NOT NULL,
   `student_name` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
   `student_email` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `invited_list` text COLLATE utf8_spanish_ci,
+  `invited_list` text COLLATE utf8_spanish_ci DEFAULT NULL,
   `total_guest` int(11) NOT NULL,
-  `date_registred` timestamp NULL DEFAULT CURRENT_TIMESTAMP
+  `date_registred` timestamp NULL DEFAULT current_timestamp(),
+  `registration_code` text COLLATE utf8_spanish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 ALTER TABLE `ia_records` ADD PRIMARY KEY (`record_id`);
 ALTER TABLE `ia_records` MODIFY `record_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1; COMMIT;
@@ -80,14 +81,14 @@ CREATE TABLE `ia_settings` (
   `settings_id` int(11) NOT NULL,
   `settings_email` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `sender_name` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
-  `registration_code` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
+  `registration_code` text COLLATE utf8_spanish_ci NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1',
   `user_id` tinyint(1) NOT NULL,
   `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `comment` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 INSERT INTO `ia_settings` (`settings_id`, `settings_email`, `sender_name`, `registration_code`, `status`, `user_id`, `updated_at`, `comment`) VALUES
-(1, 'dafsystems01@gmail.com', 'CBT-GRADUACIÓN 2019', 'Irving_01', 1, 1, '2019-07-08 04:12:50', NULL);
+(1, 'dafsystems01@gmail.com', 'CBT-GRADUACIÓN 2019', 'a33b4e1567313d02ca1ae6a1da34d179e399418efd86ff58f6ec719a437250865bd68efa12ad335928a63303e914f579e97a850511e9a9905f7727939317cf772bDBCtm5iH1IjWpAyiyBGqAHiDE6S/L3lnzksUm2YZg=', 1, 1, '2019-07-08 04:12:50', NULL);
 ALTER TABLE `ia_settings` ADD PRIMARY KEY (`settings_id`);
 ALTER TABLE `ia_settings` MODIFY `settings_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
