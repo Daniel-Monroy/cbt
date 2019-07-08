@@ -10,6 +10,7 @@ class Records extends MY_Controller {
 		$this->load->model('institutes/institutes_model');
 		$this->load->model('plans/plans_model');
 		$this->load->model('groups/groups_model');
+		$this->load->model('reg/settings_model');
 	}
 	
 	public function index(){
@@ -91,6 +92,13 @@ class Records extends MY_Controller {
 	            'placeholder' => 'Antonio Tapia Jímenez',
 	            'class' => 'form-control student_invited_validate'
 	        ];
+	        $data['registration_code'] = [
+	            'type'  => 'text',
+	            'name'  => 'registration_code',
+	            'value' => $this->form_validation->set_value('registration_code'),
+	            'placeholder' => 'Código de registro',
+	            'class' => 'form-control registration_code'
+	        ];
 
 			$this->load->view('records/index', $data);
 		
@@ -154,15 +162,23 @@ class Records extends MY_Controller {
 	}
 
 	function _form_validation(){
-        $this->form_validation->set_rules('plan_id',        'Carrera',   		 'trim|required|valid_combo_id');
-        $this->form_validation->set_rules('group_id', 	    'Grupo',     		 'trim|required|valid_combo_id');
-        $this->form_validation->set_rules('student_account','Número de control', 'trim|required|max_length[5]|is_unique[records.student_account]');
-        $this->form_validation->set_rules('student_name', 	'Nombre',    'trim|required|max_length[255]');
-       	$this->form_validation->set_rules('student_email',	'Email',     'trim|required|valid_email|is_unique[records.student_email]');
-        $this->form_validation->set_rules('invited_list' ,	'Invitados', 'trim|required');
+        $this->form_validation->set_rules('plan_id',           'Carrera',   		'trim|required|valid_combo_id');
+        $this->form_validation->set_rules('group_id', 	       'Grupo',     		'trim|required|valid_combo_id');
+        $this->form_validation->set_rules('student_account',   'Número de control', 'trim|required|max_length[5]|is_unique[records.student_account]');
+        $this->form_validation->set_rules('student_name', 	   'Nombre',    'trim|required|max_length[255]');
+       	$this->form_validation->set_rules('student_email',	   'Email',     'trim|required|valid_email|is_unique[records.student_email]');
+        $this->form_validation->set_rules('invited_list' ,	   'Invitados', 'trim|required');
+        $this->form_validation->set_rules('registration_code', 'Código de registro','trim|required|callback__registration_code');
         $this->form_validation->set_error_delimiters('<small>', '</small><br/>');
     }
 	
+	function _registration_code($registration_code){
+      	$setting_info = $this->settings_model->get("settings_id", "1")->row();
+      	if($setting_info->registration_code != $registration_code)
+      		return FALSE;
+      	else
+      		return TRUE;
+   }
 }
 
 /* End of file Records.php */
