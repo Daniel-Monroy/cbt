@@ -10,6 +10,7 @@ class Records extends MY_Controller {
 		$this->load->model('institutes/institutes_model');
 		$this->load->model('plans/plans_model');
 		$this->load->model('groups/groups_model');
+		$this->load->model('reg/settings_model');
 	}
 	
 	public function index(){
@@ -21,7 +22,6 @@ class Records extends MY_Controller {
             $data['message'] = $this->session->flashdata('msg_success');
         }
 		$data['extraHeadContent']    =  get_assets("records/records.css");
-		
 		$data['extraFooterContent']  =  get_assets("records/records.js");
 		$data['extraFooterContent'] .=  get_assets("records/new_member.js");
 		$data['extraFooterContent'] .=  get_assets("records/validate.js");
@@ -56,6 +56,13 @@ class Records extends MY_Controller {
 	            'placeholder' => 'Código',
 	            'class' => 'form-control code'
 	        ];
+	        $data['student_account'] = [
+	            'name'  => 'student_account',
+	            'type'  => 'text',
+	            'value' => $this->form_validation->set_value('student_account'),
+	            'placeholder' => 'Número de control',
+	            'class' => 'form-control student_account'
+	        ];
 	        $data['student_name'] = [
 	            'name'  => 'student_name',
 	            'type'  => 'text',
@@ -84,6 +91,13 @@ class Records extends MY_Controller {
 	            'placeholder' => 'Antonio Tapia Jímenez',
 	            'class' => 'form-control student_invited_validate'
 	        ];
+	        $data['registration_code'] = [
+	            'type'  => 'text',
+	            'name'  => 'registration_code',
+	            'value' => $this->form_validation->set_value('registration_code'),
+	            'placeholder' => 'Código de registro',
+	            'class' => 'form-control registration_code'
+	        ];
 
 			$this->load->view('records/index', $data);
 		
@@ -103,12 +117,13 @@ class Records extends MY_Controller {
 	        $config_email = array();
 	        $config_email['subjet'] = "CÓDIGO CBT-GRADUACIÓN 2019";
 	        $message_info = array(
-	          'record_number' => $record_info['code'],
+	          'record_number' 	=> $record_info['code'],
+	          'student_account' => $record_info['student_account'],
 	          'student_name'  => $record_info['student_name'],
 	          'date'          => date('Y-m-d H:i:s'),
 	          'email'         => $record_info['student_email'],
 	          "description"   => "CÓDIGO QR DEL REGISTRO DE INVITADOS PARA LA GRADUACIÓN CBT-2019",
-	          "inviteds_list"  => $record_info['invited_list']
+	          "inviteds_list" => $record_info['invited_list']
 	        );
 	        $send_email = $this->send_email($config_email, $message_info);
 	        $this->session->set_flashdata('msg_success', '<div class="alert alert-success alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'.$this->lang->line('record_saved').$mensaje.'</div> <script>localStorage.removeItem("cbt_guests");localStorage.removeItem("cbt_records");</script>');
@@ -146,14 +161,23 @@ class Records extends MY_Controller {
 	}
 
 	function _form_validation(){
-        $this->form_validation->set_rules('plan_id',      'Carrera',   'trim|required|valid_combo_id');
-        $this->form_validation->set_rules('group_id', 	  'Grupo',     'trim|required|valid_combo_id');
-        $this->form_validation->set_rules('student_name', 'Nombre',    'trim|max_length[255]');
-       	$this->form_validation->set_rules('student_email','Email',     'trim|required|valid_email');
-        $this->form_validation->set_rules('invited_list' ,'Invitados', 'trim|required');
+        $this->form_validation->set_rules('plan_id',           'Carrera',   		'trim|required|valid_combo_id');
+        $this->form_validation->set_rules('group_id', 	       'Grupo',     		'trim|required|valid_combo_id');
+        $this->form_validation->set_rules('student_account',   'Número de control', 'trim|required|max_length[5]|is_unique[records.student_account]');
+        $this->form_validation->set_rules('student_name', 	   'Nombre',    'trim|required|max_length[255]');
+       	$this->form_validation->set_rules('student_email',	   'Email',     'trim|required|valid_email|is_unique[records.student_email]');
+        $this->form_validation->set_rules('invited_list' ,	   'Invitados', 'trim|required');
+        $this->form_validation->set_rules('registration_code', 'Código de registro','trim|required|callback__registration_code');
         $this->form_validation->set_error_delimiters('<small>', '</small><br/>');
     }
 	
+	function _registration_code($registration_code){
+      	$setting_info = $this->settings_model->get("settings_id", "1")->row();
+      	if($this->records_model->registration_code_decode($setting_info->registration_code) != $registration_code)
+      		return FALSE;
+      	else
+      		return TRUE;
+   }
 }
 
 /* End of file Records.php */

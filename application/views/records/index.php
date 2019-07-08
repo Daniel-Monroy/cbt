@@ -21,9 +21,7 @@
 				<div class="col-xs-12">
 				   <?php 
 				   		echo (isset($message))?($message):('');
-			        	if (validation_errors()):
-				            echo '<div class="alert alert-danger alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>'.validation_errors().'</div>';
-				        endif;
+				   		echo (validation_errors())?(get_message('danger', validation_errors())):('');
 			        ?>
 				</div>
 			</div>
@@ -31,7 +29,7 @@
 			<?php echo form_open_multipart('records/records/nwr', array('id' => 'newRecordForm', 'name' => 'newRecordForm', 'autocomplete' => 'off', 'onsubmit' => 'return requiredFields("");'));?>
 				<div class="form-group <?php echo (form_error('code')?('has-error'):(''));?>">
 					<?php echo required_field();?>
-					<label for="code"> Código de registro (Asignado automaticamente): </label>
+					<label for="code"> Código: (Asignado automaticamente): </label>
 					<div class="input-group">
 						<span class="input-group-addon">
 							<i class="fa fa-key"></i>
@@ -57,6 +55,16 @@
 							<i class="fa fa-users"></i>
 						</span>	
 						<?php echo form_dropdown('group_id', $groups, set_value('group_id'), 'class="form-control group_id"');?>
+					</div>
+				</div>
+				<div class="form-group <?php echo (form_error('student_account')?('has-error'):(''));?>">
+					<?php echo required_field();?>
+					<label for="student_account"> Número de control:</label>
+					<div class="input-group">
+						<span class="input-group-addon">
+							<i class="fa fa-key"></i>
+						</span>	
+						<?php echo form_input($student_account); ?> 
 					</div>
 				</div>
 				<div class="form-group <?php echo (form_error('student_name')?('has-error'):(''));?>">
@@ -110,6 +118,16 @@
 						<i class="fa fa-trash"></i> Eliminar todos los invitados 
 					</button>
 					<br>
+				</div>
+				<div class="form-group <?php echo (form_error('registration_code')?('has-error'):(''));?>">
+					<?php echo required_field();?>
+					<label for="registration_code"> Ingresa el código proporcionado por tu docente: </label>
+					<div class="input-group">
+						<span class="input-group-addon">
+							<i class="fa fa-lock"></i>
+						</span>	
+						<?php echo form_input($registration_code); ?> 
+					</div>
 				</div>
 				<div class="clearfix"></div>
 				<div class="row">

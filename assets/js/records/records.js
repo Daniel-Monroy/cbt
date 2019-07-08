@@ -34,8 +34,13 @@ function local_storage_add_registred(){
     cbt_records_data.push({"plan_id": $(".plan_id").val(),
 			               "student_name": $(".student_name").val(),
 			               "group_id": $(".group_id").val(),
+			               "student_account": $(".student_account").val(),
 			               "student_name": $(".student_name").val(),
 			               "student_email": $(".student_email").val()
 			            })
     localStorage.setItem("cbt_records", JSON.stringify(cbt_records_data));
 }
+
+$(document).on("click", ".save_registred", function(){
+	local_storage_add_registred();
+})

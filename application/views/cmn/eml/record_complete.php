@@ -79,6 +79,11 @@
                         </tr>  
 
                         <tr>            
+                            <td align='right'>Número de control:</td>        
+                            <td align='left'><b><?php echo $student_account;?></b></td>    
+                        </tr>
+
+                        <tr>            
                             <td align='right'>Nombre del Alumno:</td>        
                             <td align='left'><b><?php echo $student_name;?></b></td>    
                         </tr>  
