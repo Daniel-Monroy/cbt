@@ -13,6 +13,9 @@ if (localStorage.getItem("cbt_guests") != null) {
 		if (cbt_records["group_id"] != "") {
 			$(".group_id").val(cbt_records[0]["group_id"]);
 		}
+		if (cbt_records["student_account"] != "") {
+			$(".student_account").val(cbt_records[0]["student_account"]);
+		}
 		if (cbt_records["student_name"] != "") {
 			$(".student_name").val(cbt_records[0]["student_name"]);
 		}
