@@ -29,7 +29,7 @@
 			<?php echo form_open_multipart('records/records/nwr', array('id' => 'newRecordForm', 'name' => 'newRecordForm', 'autocomplete' => 'off', 'onsubmit' => 'return requiredFields("");'));?>
 				<div class="form-group <?php echo (form_error('code')?('has-error'):(''));?>">
 					<?php echo required_field();?>
-					<label for="code"> Código de registro (Asignado automaticamente): </label>
+					<label for="code"> Código: (Asignado automaticamente): </label>
 					<div class="input-group">
 						<span class="input-group-addon">
 							<i class="fa fa-key"></i>
@@ -118,6 +118,16 @@
 						<i class="fa fa-trash"></i> Eliminar todos los invitados 
 					</button>
 					<br>
+				</div>
+				<div class="form-group <?php echo (form_error('registration_code')?('has-error'):(''));?>">
+					<?php echo required_field();?>
+					<label for="registration_code"> Ingresa el código proporcionado por tu docente: </label>
+					<div class="input-group">
+						<span class="input-group-addon">
+							<i class="fa fa-lock"></i>
+						</span>	
+						<?php echo form_input($registration_code); ?> 
+					</div>
 				</div>
 				<div class="clearfix"></div>
 				<div class="row">

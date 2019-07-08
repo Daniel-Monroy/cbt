@@ -71,3 +71,23 @@ CREATE TABLE `ia_sessions` (
   `data` blob DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+
+# = IA SETTINGS
+# =============================
+drop table if exists ia_settings;
+CREATE TABLE `ia_settings` (
+  `settings_id` int(11) NOT NULL,
+  `settings_email` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
+  `sender_name` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
+  `registration_code` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `user_id` tinyint(1) NOT NULL,
+  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `comment` varchar(255) COLLATE utf8_spanish_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+INSERT INTO `ia_settings` (`settings_id`, `settings_email`, `sender_name`, `registration_code`, `status`, `user_id`, `updated_at`, `comment`) VALUES
+(1, 'dafsystems01@gmail.com', 'CBT-GRADUACIÓN 2019', 'Irving_01', 1, 1, '2019-07-08 04:12:50', NULL);
+ALTER TABLE `ia_settings` ADD PRIMARY KEY (`settings_id`);
+ALTER TABLE `ia_settings` MODIFY `settings_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+COMMIT;
